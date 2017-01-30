@@ -366,5 +366,17 @@ def main():
         else:
             print("No such effect")
 
+    # Stop the effects
+    print("Stopping effects")
+    for name, effect in effects.items():
+        stop = input_event()
+        stop.type = EV_FF;
+        stop.code =  effect.id;
+        stop.value = 0;
+
+        if os.write(fd, stop) != ctypes.sizeof(stop):
+            perror("")
+            return
+
 if __name__ == "__main__":
     main()
