@@ -208,7 +208,7 @@ def main():
         gain.code = FF_GAIN
         gain.value = 0xC000 # [0, 0xFFFF])
 
-        print("Setting master gain to 75% ... ", end="")
+        print("Setting master gain to %d%% ... " % (gain.value*100//0xFFFF), end="")
         if os.write(fd, gain) != ctypes.sizeof(gain):
           perror("Error:")
         else:
