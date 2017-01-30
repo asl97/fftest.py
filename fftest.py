@@ -218,7 +218,7 @@ def main():
     # Effect tracking functions
     effects = {}
     ids = {}
-    i = 0
+    i = 1
 
     def upload_effect(name, effect):
         nonlocal i
@@ -339,15 +339,28 @@ def main():
     upload_effect("Weak rumble, with light motor", effect)
 
 
+    def stop():
+        for name, effect in effects.items():
+            stop = input_event()
+            stop.type = EV_FF;
+            stop.code =  effect.id;
+            stop.value = 0;
+
+            if os.write(fd, stop) != ctypes.sizeof(stop):
+                perror("")
+                return
+
     # Ask user what effects to play
     while True:
-        num = input("Enter effect number, -1 to exit\n")
+        num = input("Enter effect number, 0 to stop, -1 to exit\n")
         try:
             num = int(num)
         except:
             continue
 
-        if i > num >= 0:
+        if num == 0:
+            stop()
+        elif i > num >= 1:
             if ids[num] in effects:
                 play = input_event()
                 play.type = EV_FF
@@ -368,15 +381,7 @@ def main():
 
     # Stop the effects
     print("Stopping effects")
-    for name, effect in effects.items():
-        stop = input_event()
-        stop.type = EV_FF;
-        stop.code =  effect.id;
-        stop.value = 0;
-
-        if os.write(fd, stop) != ctypes.sizeof(stop):
-            perror("")
-            return
+    stop()
 
 if __name__ == "__main__":
     main()
