@@ -236,7 +236,7 @@ def main():
     # input.py doesn't provide EVIOCSFF so we define our own.
     EVIOCSFF = IOC(IOC_WRITE, 'E', 0x80, ctypes.sizeof(ff_effect))
 
-    # Upload a periodic sinusoidal effect
+    # Upload a set of periodic sinusoidal effect
     for name, wave in EFFECT:
         effect = ff_effect()
         effect.type = FF_PERIODIC
