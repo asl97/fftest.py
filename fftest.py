@@ -246,7 +246,7 @@ def main():
         effect.trigger.interval = 0
         effect.replay.length = 20000 # 20 seconds
         effect.replay.delay = 1000
-        effect.u.periodic.waveform = FF_SINE
+        effect.u.periodic.waveform = wave
         effect.u.periodic.period = 100 # 0.1 second
         effect.u.periodic.magnitude = 0x7fff # 0.5 * Maximum magnitude
         effect.u.periodic.offset = 0
