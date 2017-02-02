@@ -120,17 +120,14 @@ def perror(*args, **kwargs):
     # Piping to sys.stderr seem to mess up formatting
     print(*args, **kwargs) # file=sys.stderr,
 
-def getactiveevent():
-    "Return the first active event found"
+def getactiveevents():
+    "Return list of active events"
     event_list = []
     for l in os.listdir("/dev/input/"):
         if l.startswith("event"):
             if "system.posix_acl_access" in os.listxattr("/dev/input/"+l):
                 event_list.append("/dev/input/"+l)
-    if len(event_list) > 0:
-        if len(event_list) > 1:
-            print("More than one active device found, defaulting to first\n")
-        return sorted(event_list)[0]
+    return event_list
 
 def main():
     print("Force feedback test program.")
@@ -154,7 +151,13 @@ def main():
     if device_file_name is None:
         # Try to find an active event device
         # If nothing is found, default to event0 like fftest
-        device_file_name = getactiveevent() or "/dev/input/event0"
+        event_list = getactiveevents()
+        if len(event_list) > 0:
+            if len(event_list) > 1:
+                print("More than one active device found, defaulting to first\n")
+            device_file_name = sorted(event_list)[0]
+        else:
+            device_file_name = "/dev/input/event0"
 
     if not os.path.exists(device_file_name):
         perror("Open device file: No such file or directory")
