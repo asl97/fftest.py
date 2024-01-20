@@ -5,7 +5,7 @@
 #
 # Tests the force feedback driver
 # Copyright 2001-2002 Johann Deneux <deneux@ifrance.com>
-# Copyright 2017 ASL97 <asl97@openmailbox.org>
+# Copyright 2017 ASL97 <asl97@airmail.cc>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 # 02110-1301 USA.
 #
 # You can contact the author by email at this address:
-# ASL97 <asl97@openmailbox.org>
+# ASL97 <asl97@airmail.cc>
 #
 
 import ctypes
